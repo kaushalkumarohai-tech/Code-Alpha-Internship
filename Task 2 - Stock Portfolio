@@ -1,0 +1,34 @@
+stock_prices = {
+    "AAPL": 180,
+    "TSLA": 250,
+    "GOOGL": 140,
+    "MSFT": 320,
+    "AMZN": 175
+}
+
+print("Stock Portfolio Tracker")
+print("Available stocks: AAPL, TSLA, GOOGL, MSFT, AMZN")
+
+total = 0
+
+n = int(input("\nHow many stocks do you want to add? "))
+
+for i in range(n):
+    name = input("Enter stock name: ").upper()
+    qty = int(input("Enter quantity: "))
+
+    if name in stock_prices:
+        value = stock_prices[name] * qty
+        total += value
+        print(name + " x" + str(qty) + " = $" + str(value))
+    else:
+        print("Stock not found, skipping.")
+
+print("\nTotal Investment: $" + str(total))
+
+save = input("Save to file? (yes/no): ")
+if save == "yes":
+    file = open("portfolio.txt", "w")
+    file.write("Total Investment: $" + str(total))
+    file.close()
+    print("Saved to portfolio.txt")
