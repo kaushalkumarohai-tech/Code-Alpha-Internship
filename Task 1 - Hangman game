@@ -1,0 +1,46 @@
+import random
+
+words = ["jay", "shri", "radhe", "krishna", "god"]
+
+word = random.choice(words)
+guessed = []
+wrong = 0
+max_wrong = 6
+
+print("Welcome to Hangman!")
+print("Word: " + " ".join("_" * len(word)))
+
+while wrong < max_wrong:
+    guess = input("\nGuess a letter: ").lower()
+
+    if len(guess) != 1 or not guess.isalpha():
+        print("Please enter a single letter.")
+        continue
+
+    if guess in guessed:
+        print("You already guessed that letter.")
+        continue
+
+    guessed.append(guess)
+
+    if guess in word:
+        print("Correct!")
+    else:
+        wrong += 1
+        print("Wrong! " + str(wrong) + "/" + str(max_wrong))
+
+    # Show current word state
+    display = ""
+    for letter in word:
+        if letter in guessed:
+            display += letter + " "
+        else:
+            display += "_ "
+    print("Word: " + display)
+
+    # Check win
+    if all(letter in guessed for letter in word):
+        print("\nYou won! The word was: " + word)
+        break
+else:
+    print("\nGame over! The word was: " + word)
